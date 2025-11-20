@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
 import { useAuth } from '../contexts/AuthContext';
 import Modal from '../components/Modal';
+import ProfileMenu from '../components/ProfileMenu';
 
 export default function TeacherDashboard() {
     const [activeTab, setActiveTab] = useState('questions');
@@ -25,10 +26,7 @@ export default function TeacherDashboard() {
         }
     }, [user]);
 
-    const handleLogout = async () => {
-        await signOut();
-        navigate('/login');
-    };
+
 
     const fetchQuestions = async () => {
         const { data, error } = await supabase
@@ -202,13 +200,7 @@ export default function TeacherDashboard() {
                             Manage your questions and exams
                         </p>
                     </div>
-                    <button
-                        className="btn btn-outline"
-                        onClick={handleLogout}
-                        style={{ borderColor: 'var(--danger)', color: 'var(--danger)' }}
-                    >
-                        Logout
-                    </button>
+                    <ProfileMenu />
                 </div>
             </div>
 

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
 import { useAuth } from '../contexts/AuthContext';
+import ProfileMenu from '../components/ProfileMenu';
 
 export default function StudentDashboard() {
     const [exams, setExams] = useState([]);
@@ -16,10 +17,7 @@ export default function StudentDashboard() {
         }
     }, [user]);
 
-    const handleLogout = async () => {
-        await signOut();
-        navigate('/login');
-    };
+
 
     const fetchExams = async () => {
         const { data, error } = await supabase
@@ -52,18 +50,7 @@ export default function StudentDashboard() {
                             Welcome back, {user?.email?.split('@')[0]}! Here are your exams.
                         </p>
                     </div>
-                    <button
-                        className="btn btn-outline"
-                        onClick={handleLogout}
-                        style={{
-                            borderColor: 'var(--danger)',
-                            color: 'var(--danger)',
-                            padding: '0.5rem 1.25rem',
-                            fontSize: '0.9rem'
-                        }}
-                    >
-                        Sign Out
-                    </button>
+                    <ProfileMenu />
                 </div>
             </div>
 
