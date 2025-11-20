@@ -51,34 +51,49 @@
 
 ## 部署到 Netlify
 
-### 通过 Netlify CLI
+### 方式一：从 GitHub 自动部署（推荐）
 
-1. **安装 Netlify CLI**
-   ```bash
-   npm install -g netlify-cli
-   ```
+1.  **准备工作**
+    *   确保项目根目录已有 `netlify.toml` 文件（已为您创建）。
+    *   确保代码已推送到 GitHub。
 
-2. **进入前端目录并构建**
-   ```bash
-   cd frontend
-   npm run build
-   ```
+2.  **连接 GitHub**
+    *   登录 [Netlify Dashboard](https://app.netlify.com)。
+    *   点击 **"Add new site"** -> **"Import an existing project"**。
+    *   选择 **GitHub**。
 
-3. **部署**
-   ```bash
-   netlify deploy --prod
-   ```
+3.  **选择仓库**
+    *   搜索并选择您的仓库 `ai-exam`。
 
-4. **配置**
-   - Publish directory: `dist`
-   - 获取公网 URL
+4.  **配置构建设置**
+    *   Netlify 会自动读取 `netlify.toml` 配置，您通常**不需要手动修改**。
+    *   确认以下设置（如果未自动填充）：
+        *   **Base directory**: `frontend`
+        *   **Build command**: `npm run build`
+        *   **Publish directory**: `dist`
 
-### 通过 Netlify Dashboard
+5.  **部署**
+    *   点击 **"Deploy site"**。
+    *   Netlify 会自动构建并发布。以后每次 `git push` 都会自动更新。
 
-1. **访问** https://app.netlify.com
-2. **拖拽部署**
-   - 将 `frontend/dist` 目录拖到 Netlify
-   - 获取公网 URL
+### 方式二：通过 Netlify CLI（手动）
+
+1.  **安装 Netlify CLI**
+    ```bash
+    npm install -g netlify-cli
+    ```
+
+2.  **进入前端目录并构建**
+    ```bash
+    cd frontend
+    npm run build
+    ```
+
+3.  **部署**
+    ```bash
+    netlify deploy --prod
+    ```
+    *   当询问 Publish directory 时，输入 `dist`。
 
 ## 环境变量配置
 
