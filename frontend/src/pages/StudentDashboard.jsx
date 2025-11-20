@@ -33,7 +33,7 @@ export default function StudentDashboard() {
     const fetchResults = async () => {
         const { data, error } = await supabase
             .from('exam_results')
-            .select('*, exams(title)')
+            .select('*, exams(title, total_score)')
             .eq('student_id', user.id)
             .order('submitted_at', { ascending: false });
 
