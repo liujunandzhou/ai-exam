@@ -31,8 +31,8 @@ export default function Login() {
     };
 
     return (
-        <div className="container flex items-center justify-center" style={{ minHeight: '100vh' }}>
-            <div className="card" style={{ width: '100%', maxWidth: '400px' }}>
+        <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--background)', padding: '2rem' }}>
+            <div className="card" style={{ width: '100%', maxWidth: '420px' }}>
                 <h2 style={{ textAlign: 'center' }}>Login</h2>
                 <form onSubmit={handleLogin} className="flex flex-col">
                     <input
