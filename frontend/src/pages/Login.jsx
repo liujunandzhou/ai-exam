@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import Modal from '../components/Modal';
@@ -10,11 +10,23 @@ export default function Login() {
     const navigate = useNavigate();
     const [modal, setModal] = useState({ isOpen: false, title: '', content: '', type: 'info' });
 
+    // Load last used email on component mount
+    useEffect(() => {
+        const lastEmail = localStorage.getItem('lastLoginEmail');
+        if (lastEmail) {
+            setEmail(lastEmail);
+        }
+    }, []);
+
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
             const { data, error } = await signIn(email, password);
             if (error) throw error;
+
+            // Save email to localStorage for next time
+            localStorage.setItem('lastLoginEmail', email);
+
             // Navigation handled by AuthContext listener or PrivateRoute
             // But we can force check or just wait. 
             // Actually, AuthContext listener will update state, but we might need to redirect manually if already on login page.
