@@ -135,50 +135,77 @@ export default function ProfileMenu() {
                 style={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '0.75rem',
-                    padding: '0.5rem 1rem',
+                    gap: '0.875rem',
+                    padding: '0.625rem 1.125rem',
                     background: 'white',
-                    border: '1px solid var(--border)',
-                    borderRadius: 'var(--radius)',
+                    border: `2px solid ${isOpen ? 'var(--primary)' : 'var(--border)'}`,
+                    borderRadius: '12px',
                     cursor: 'pointer',
-                    transition: 'all 0.2s',
-                    boxShadow: isOpen ? 'var(--shadow-md)' : 'none'
+                    transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
+                    boxShadow: isOpen ? '0 4px 12px rgba(99, 102, 241, 0.15)' : '0 1px 3px rgba(0, 0, 0, 0.05)',
+                    transform: isOpen ? 'translateY(-1px)' : 'translateY(0)'
                 }}
-                onMouseEnter={(e) => e.currentTarget.style.boxShadow = 'var(--shadow-sm)'}
+                onMouseEnter={(e) => {
+                    if (!isOpen) {
+                        e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.08)';
+                        e.currentTarget.style.borderColor = 'var(--primary-light)';
+                    }
+                }}
                 onMouseLeave={(e) => {
-                    if (!isOpen) e.currentTarget.style.boxShadow = 'none';
+                    if (!isOpen) {
+                        e.currentTarget.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.05)';
+                        e.currentTarget.style.borderColor = 'var(--border)';
+                    }
                 }}
             >
                 {/* Avatar */}
                 <div style={{
-                    width: '36px',
-                    height: '36px',
+                    width: '40px',
+                    height: '40px',
                     borderRadius: '50%',
-                    background: 'linear-gradient(135deg, var(--primary), var(--primary-dark))',
+                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                     color: 'white',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    fontSize: '0.875rem',
-                    fontWeight: '600',
-                    flexShrink: 0
+                    fontSize: '0.95rem',
+                    fontWeight: '700',
+                    flexShrink: 0,
+                    boxShadow: '0 2px 8px rgba(102, 126, 234, 0.3)',
+                    letterSpacing: '0.5px'
                 }}>
                     {getInitials()}
                 </div>
 
-                {/* Name */}
-                <div style={{ textAlign: 'left' }}>
-                    <div style={{ fontSize: '0.9rem', fontWeight: '500', color: 'var(--text-primary)' }}>
+                {/* Name & Role */}
+                <div style={{ textAlign: 'left', minWidth: '120px' }}>
+                    <div style={{
+                        fontSize: '0.95rem',
+                        fontWeight: '600',
+                        color: 'var(--text-primary)',
+                        marginBottom: '2px',
+                        letterSpacing: '-0.01em'
+                    }}>
                         {getDisplayName()}
                     </div>
-                    <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'capitalize' }}>
+                    <div style={{
+                        fontSize: '0.75rem',
+                        color: 'var(--text-muted)',
+                        textTransform: 'capitalize',
+                        fontWeight: '500'
+                    }}>
                         {profile?.role}
                     </div>
                 </div>
 
                 {/* Dropdown Arrow */}
-                <div style={{ color: 'var(--text-muted)', fontSize: '0.75rem' }}>
-                    {isOpen ? '▲' : '▼'}
+                <div style={{
+                    color: isOpen ? 'var(--primary)' : 'var(--text-muted)',
+                    fontSize: '0.7rem',
+                    transition: 'all 0.2s',
+                    transform: isOpen ? 'rotate(180deg)' : 'rotate(0)'
+                }}>
+                    ▼
                 </div>
             </button>
 
@@ -186,26 +213,54 @@ export default function ProfileMenu() {
             {isOpen && (
                 <div style={{
                     position: 'absolute',
-                    top: 'calc(100% + 0.5rem)',
+                    top: 'calc(100% + 0.75rem)',
                     right: 0,
                     background: 'white',
                     border: '1px solid var(--border)',
-                    borderRadius: 'var(--radius)',
-                    boxShadow: 'var(--shadow-lg)',
-                    minWidth: '280px',
+                    borderRadius: '12px',
+                    boxShadow: '0 10px 40px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.08)',
+                    minWidth: '300px',
                     zIndex: 1000,
-                    overflow: 'hidden'
+                    overflow: 'hidden',
+                    animation: 'slideDown 0.2s ease-out'
                 }}>
+                    <style>
+                        {`
+                            @keyframes slideDown {
+                                from {
+                                    opacity: 0;
+                                    transform: translateY(-8px);
+                                }
+                                to {
+                                    opacity: 1;
+                                    transform: translateY(0);
+                                }
+                            }
+                        `}
+                    </style>
+
                     {/* User Info Header */}
                     <div style={{
-                        padding: '1rem',
-                        borderBottom: '1px solid var(--border)',
-                        background: 'var(--background)'
+                        padding: '1.25rem',
+                        background: 'linear-gradient(135deg, #667eea15 0%, #764ba215 100%)',
+                        borderBottom: '1px solid var(--border)'
                     }}>
-                        <div style={{ fontSize: '0.875rem', color: 'var(--text-muted)', marginBottom: '0.25rem' }}>
+                        <div style={{
+                            fontSize: '0.8rem',
+                            color: 'var(--text-muted)',
+                            marginBottom: '0.375rem',
+                            fontWeight: '500',
+                            textTransform: 'uppercase',
+                            letterSpacing: '0.05em'
+                        }}>
                             Signed in as
                         </div>
-                        <div style={{ fontSize: '0.95rem', fontWeight: '600', color: 'var(--text-primary)' }}>
+                        <div style={{
+                            fontSize: '0.95rem',
+                            fontWeight: '600',
+                            color: 'var(--text-primary)',
+                            wordBreak: 'break-all'
+                        }}>
                             {user?.email}
                         </div>
                     </div>
@@ -221,19 +276,30 @@ export default function ProfileMenu() {
                             style={{
                                 width: '100%',
                                 textAlign: 'left',
-                                padding: '0.75rem 1rem',
+                                padding: '0.875rem 1rem',
                                 background: 'transparent',
                                 border: 'none',
-                                borderRadius: 'var(--radius)',
+                                borderRadius: '8px',
                                 cursor: 'pointer',
-                                transition: 'background 0.2s',
+                                transition: 'all 0.2s',
                                 fontSize: '0.9rem',
-                                color: 'var(--text-primary)'
+                                color: 'var(--text-primary)',
+                                fontWeight: '500',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '0.75rem'
                             }}
-                            onMouseEnter={(e) => e.currentTarget.style.background = 'var(--background)'}
-                            onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                            onMouseEnter={(e) => {
+                                e.currentTarget.style.background = 'var(--background)';
+                                e.currentTarget.style.transform = 'translateX(4px)';
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.background = 'transparent';
+                                e.currentTarget.style.transform = 'translateX(0)';
+                            }}
                         >
-                            ✏️ Change Display Name
+                            <span style={{ fontSize: '1.1rem' }}>✏️</span>
+                            <span>Change Display Name</span>
                         </button>
 
                         <button
@@ -244,42 +310,63 @@ export default function ProfileMenu() {
                             style={{
                                 width: '100%',
                                 textAlign: 'left',
-                                padding: '0.75rem 1rem',
+                                padding: '0.875rem 1rem',
                                 background: 'transparent',
                                 border: 'none',
-                                borderRadius: 'var(--radius)',
+                                borderRadius: '8px',
                                 cursor: 'pointer',
-                                transition: 'background 0.2s',
+                                transition: 'all 0.2s',
                                 fontSize: '0.9rem',
-                                color: 'var(--text-primary)'
+                                color: 'var(--text-primary)',
+                                fontWeight: '500',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '0.75rem'
                             }}
-                            onMouseEnter={(e) => e.currentTarget.style.background = 'var(--background)'}
-                            onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                            onMouseEnter={(e) => {
+                                e.currentTarget.style.background = 'var(--background)';
+                                e.currentTarget.style.transform = 'translateX(4px)';
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.background = 'transparent';
+                                e.currentTarget.style.transform = 'translateX(0)';
+                            }}
                         >
-                            🔒 Change Password
+                            <span style={{ fontSize: '1.1rem' }}>🔒</span>
+                            <span>Change Password</span>
                         </button>
 
-                        <div style={{ height: '1px', background: 'var(--border)', margin: '0.5rem 0' }} />
+                        <div style={{ height: '1px', background: 'var(--border)', margin: '0.5rem 0.75rem' }} />
 
                         <button
                             onClick={handleLogout}
                             style={{
                                 width: '100%',
                                 textAlign: 'left',
-                                padding: '0.75rem 1rem',
+                                padding: '0.875rem 1rem',
                                 background: 'transparent',
                                 border: 'none',
-                                borderRadius: 'var(--radius)',
+                                borderRadius: '8px',
                                 cursor: 'pointer',
-                                transition: 'background 0.2s',
+                                transition: 'all 0.2s',
                                 fontSize: '0.9rem',
                                 color: 'var(--danger)',
-                                fontWeight: '500'
+                                fontWeight: '600',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '0.75rem'
                             }}
-                            onMouseEnter={(e) => e.currentTarget.style.background = '#fff5f5'}
-                            onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                            onMouseEnter={(e) => {
+                                e.currentTarget.style.background = '#fff5f5';
+                                e.currentTarget.style.transform = 'translateX(4px)';
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.background = 'transparent';
+                                e.currentTarget.style.transform = 'translateX(0)';
+                            }}
                         >
-                            🚪 Sign Out
+                            <span style={{ fontSize: '1.1rem' }}>🚪</span>
+                            <span>Sign Out</span>
                         </button>
                     </div>
                 </div>
