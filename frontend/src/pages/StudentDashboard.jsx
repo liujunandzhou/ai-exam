@@ -80,24 +80,61 @@ export default function StudentDashboard() {
                                         transition: 'all 0.2s ease',
                                         display: 'flex',
                                         flexDirection: 'column',
-                                        gap: '1rem'
+                                        height: '100%'
                                     }}>
-                                        <div className="item-card-header">
-                                            <h4 className="item-card-title" style={{ fontSize: '1.1rem', fontWeight: '600', marginBottom: '0.25rem' }}>{exam.title}</h4>
-                                            <p style={{ margin: 0, fontSize: '0.85rem', color: 'var(--text-muted)' }}>
+                                        {/* Title */}
+                                        <h4 className="item-card-title" style={{
+                                            fontSize: '1.1rem',
+                                            fontWeight: '600',
+                                            marginBottom: '0.75rem',
+                                            color: 'var(--text-primary)',
+                                            minHeight: '1.65rem'
+                                        }}>
+                                            {exam.title}
+                                        </h4>
+
+                                        {/* Metadata Area - Fixed Height */}
+                                        <div style={{
+                                            minHeight: '52px',
+                                            marginBottom: '1rem',
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            gap: '0.5rem'
+                                        }}>
+                                            <p style={{
+                                                margin: 0,
+                                                fontSize: '0.85rem',
+                                                color: 'var(--text-muted)'
+                                            }}>
                                                 Created {new Date(exam.created_at).toLocaleDateString()}
                                             </p>
+
+                                            <div className="item-card-meta" style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+                                                <span className="badge" style={{
+                                                    background: 'var(--primary-light)',
+                                                    color: 'var(--primary)',
+                                                    border: '1px solid var(--primary-light)',
+                                                    fontSize: '0.85rem',
+                                                    padding: '0.25rem 0.625rem'
+                                                }}>
+                                                    ⏱️ {exam.duration_minutes} min
+                                                </span>
+                                                <span className="badge" style={{
+                                                    background: 'var(--success-light)',
+                                                    color: 'var(--success)',
+                                                    border: '1px solid var(--success-light)',
+                                                    fontSize: '0.85rem',
+                                                    padding: '0.25rem 0.625rem'
+                                                }}>
+                                                    🎯 {exam.total_score} pts
+                                                </span>
+                                            </div>
                                         </div>
 
-                                        <div className="item-card-meta" style={{ display: 'flex', gap: '0.75rem' }}>
-                                            <span className="badge" style={{ background: 'var(--primary-light)', color: 'var(--primary)', border: '1px solid var(--primary-light)' }}>
-                                                ⏱️ {exam.duration_minutes} min
-                                            </span>
-                                            <span className="badge" style={{ background: 'var(--success-light)', color: 'var(--success)', border: '1px solid var(--success-light)' }}>
-                                                🎯 {exam.total_score} pts
-                                            </span>
-                                        </div>
+                                        {/* Spacer */}
+                                        <div style={{ flex: 1 }} />
 
+                                        {/* Action Button */}
                                         <Link
                                             to={`/exam/${exam.id}`}
                                             className="btn btn-primary"
@@ -105,8 +142,8 @@ export default function StudentDashboard() {
                                                 width: '100%',
                                                 textAlign: 'center',
                                                 justifyContent: 'center',
-                                                marginTop: '0.5rem',
-                                                fontWeight: '500'
+                                                fontWeight: '500',
+                                                padding: '0.625rem 1rem'
                                             }}
                                         >
                                             Start Exam
@@ -140,21 +177,22 @@ export default function StudentDashboard() {
                                         border: '1px solid var(--border)',
                                         display: 'flex',
                                         flexDirection: 'column',
-                                        gap: '1rem'
+                                        height: '100%'
                                     }}>
-                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start' }}>
-                                            <div>
-                                                <h4 className="item-card-title" style={{ fontSize: '1.1rem', fontWeight: '600', marginBottom: '0.5rem' }}>
-                                                    {res.exams?.title || 'Unknown Exam'}
-                                                </h4>
-                                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
-                                                    <span>📅 {new Date(res.submitted_at).toLocaleDateString()}</span>
-                                                    <span>•</span>
-                                                    <span>{new Date(res.submitted_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
-                                                </div>
-                                            </div>
+                                        {/* Title with Score */}
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '0.75rem' }}>
+                                            <h4 className="item-card-title" style={{
+                                                fontSize: '1.1rem',
+                                                fontWeight: '600',
+                                                color: 'var(--text-primary)',
+                                                margin: 0,
+                                                minHeight: '1.65rem',
+                                                flex: 1
+                                            }}>
+                                                {res.exams?.title || 'Unknown Exam'}
+                                            </h4>
 
-                                            <div style={{ textAlign: 'right' }}>
+                                            <div style={{ textAlign: 'right', marginLeft: '1rem' }}>
                                                 <div style={{
                                                     fontSize: '1.5rem',
                                                     fontWeight: '700',
@@ -172,6 +210,25 @@ export default function StudentDashboard() {
                                             </div>
                                         </div>
 
+                                        {/* Metadata Area - Fixed Height */}
+                                        <div style={{
+                                            minHeight: '52px',
+                                            marginBottom: '1rem',
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            gap: '0.5rem'
+                                        }}>
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
+                                                <span>📅 {new Date(res.submitted_at).toLocaleDateString()}</span>
+                                                <span>•</span>
+                                                <span>{new Date(res.submitted_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                                            </div>
+                                        </div>
+
+                                        {/* Spacer */}
+                                        <div style={{ flex: 1 }} />
+
+                                        {/* Action Button */}
                                         <Link
                                             to={`/exam-detail/${res.id}`}
                                             className="btn btn-outline"
@@ -181,7 +238,8 @@ export default function StudentDashboard() {
                                                 justifyContent: 'center',
                                                 fontWeight: '500',
                                                 borderColor: 'var(--primary)',
-                                                color: 'var(--primary)'
+                                                color: 'var(--primary)',
+                                                padding: '0.625rem 1rem'
                                             }}
                                         >
                                             View Details
