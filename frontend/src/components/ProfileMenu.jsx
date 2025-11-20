@@ -12,6 +12,7 @@ export default function ProfileMenu() {
     const [isEditingName, setIsEditingName] = useState(false);
     const [newDisplayName, setNewDisplayName] = useState('');
     const [isChangingPassword, setIsChangingPassword] = useState(false);
+    const [oldPassword, setOldPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const dropdownRef = useRef(null);
@@ -81,11 +82,21 @@ export default function ProfileMenu() {
     };
 
     const handleChangePassword = async () => {
+        if (!oldPassword) {
+            setModal({
+                isOpen: true,
+                title: 'Error',
+                content: 'Please enter your current password',
+                type: 'error'
+            });
+            return;
+        }
+
         if (newPassword.length < 6) {
             setModal({
                 isOpen: true,
                 title: 'Error',
-                content: 'Password must be at least 6 characters',
+                content: 'New password must be at least 6 characters',
                 type: 'error'
             });
             return;
@@ -95,13 +106,30 @@ export default function ProfileMenu() {
             setModal({
                 isOpen: true,
                 title: 'Error',
-                content: 'Passwords do not match',
+                content: 'New passwords do not match',
                 type: 'error'
             });
             return;
         }
 
         try {
+            // Verify old password by attempting to sign in
+            const { error: signInError } = await supabase.auth.signInWithPassword({
+                email: user.email,
+                password: oldPassword
+            });
+
+            if (signInError) {
+                setModal({
+                    isOpen: true,
+                    title: 'Error',
+                    content: 'Current password is incorrect',
+                    type: 'error'
+                });
+                return;
+            }
+
+            // If verification successful, update password
             const { error } = await supabase.auth.updateUser({
                 password: newPassword
             });
@@ -115,6 +143,7 @@ export default function ProfileMenu() {
                 type: 'success'
             });
             setIsChangingPassword(false);
+            setOldPassword('');
             setNewPassword('');
             setConfirmPassword('');
         } catch (error) {
@@ -413,6 +442,7 @@ export default function ProfileMenu() {
                 isOpen={isChangingPassword}
                 onClose={() => {
                     setIsChangingPassword(false);
+                    setOldPassword('');
                     setNewPassword('');
                     setConfirmPassword('');
                 }}
@@ -422,11 +452,18 @@ export default function ProfileMenu() {
                 <div>
                     <input
                         type="password"
+                        value={oldPassword}
+                        onChange={(e) => setOldPassword(e.target.value)}
+                        placeholder="Current password"
+                        style={{ width: '100%', marginBottom: '0.75rem' }}
+                        autoFocus
+                    />
+                    <input
+                        type="password"
                         value={newPassword}
                         onChange={(e) => setNewPassword(e.target.value)}
                         placeholder="New password (min 6 characters)"
                         style={{ width: '100%', marginBottom: '0.75rem' }}
-                        autoFocus
                     />
                     <input
                         type="password"
@@ -440,6 +477,7 @@ export default function ProfileMenu() {
                             className="btn btn-outline"
                             onClick={() => {
                                 setIsChangingPassword(false);
+                                setOldPassword('');
                                 setNewPassword('');
                                 setConfirmPassword('');
                             }}
