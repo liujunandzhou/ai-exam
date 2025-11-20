@@ -75,75 +75,73 @@ export default function StudentDashboard() {
                                     <div key={exam.id} className="item-card" style={{
                                         background: 'white',
                                         padding: '1.5rem',
-                                        borderRadius: 'var(--radius)',
-                                        border: '1px solid var(--border)',
-                                        transition: 'all 0.2s ease',
+                                        borderRadius: '8px',
+                                        border: '1px solid #e5e7eb',
                                         display: 'flex',
                                         flexDirection: 'column',
-                                        height: '100%'
+                                        height: '190px',
+                                        transition: 'box-shadow 0.2s ease'
                                     }}>
                                         {/* Title */}
-                                        <h4 className="item-card-title" style={{
+                                        <h4 style={{
                                             fontSize: '1.1rem',
                                             fontWeight: '600',
                                             marginBottom: '0.75rem',
-                                            color: 'var(--text-primary)',
-                                            minHeight: '1.65rem'
+                                            color: '#111827',
+                                            lineHeight: '1.4'
                                         }}>
                                             {exam.title}
                                         </h4>
 
-                                        {/* Metadata Area - Fixed Height */}
-                                        <div style={{
-                                            minHeight: '52px',
-                                            marginBottom: '1rem',
-                                            display: 'flex',
-                                            flexDirection: 'column',
-                                            gap: '0.5rem'
+                                        {/* Date */}
+                                        <p style={{
+                                            margin: '0 0 0.75rem 0',
+                                            fontSize: '0.875rem',
+                                            color: '#6b7280'
                                         }}>
-                                            <p style={{
-                                                margin: 0,
-                                                fontSize: '0.85rem',
-                                                color: 'var(--text-muted)'
-                                            }}>
-                                                Created {new Date(exam.created_at).toLocaleDateString()}
-                                            </p>
+                                            Created {new Date(exam.created_at).toLocaleDateString()}
+                                        </p>
 
-                                            <div className="item-card-meta" style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
-                                                <span className="badge" style={{
-                                                    background: 'var(--primary-light)',
-                                                    color: 'var(--primary)',
-                                                    border: '1px solid var(--primary-light)',
-                                                    fontSize: '0.85rem',
-                                                    padding: '0.25rem 0.625rem'
-                                                }}>
-                                                    ⏱️ {exam.duration_minutes} min
-                                                </span>
-                                                <span className="badge" style={{
-                                                    background: 'var(--success-light)',
-                                                    color: 'var(--success)',
-                                                    border: '1px solid var(--success-light)',
-                                                    fontSize: '0.85rem',
-                                                    padding: '0.25rem 0.625rem'
-                                                }}>
-                                                    🎯 {exam.total_score} pts
-                                                </span>
-                                            </div>
+                                        {/* Badges */}
+                                        <div style={{
+                                            flex: 1,
+                                            display: 'flex',
+                                            gap: '0.5rem',
+                                            marginBottom: '1rem',
+                                            alignItems: 'flex-start'
+                                        }}>
+                                            <span style={{
+                                                background: '#eff6ff',
+                                                color: '#3b82f6',
+                                                fontSize: '0.8125rem',
+                                                fontWeight: '500',
+                                                padding: '0.375rem 0.75rem',
+                                                borderRadius: '4px'
+                                            }}>
+                                                ⏱️ {exam.duration_minutes} min
+                                            </span>
+                                            <span style={{
+                                                background: '#f0fdf4',
+                                                color: '#22c55e',
+                                                fontSize: '0.8125rem',
+                                                fontWeight: '500',
+                                                padding: '0.375rem 0.75rem',
+                                                borderRadius: '4px'
+                                            }}>
+                                                🎯 {exam.total_score} pts
+                                            </span>
                                         </div>
 
-                                        {/* Spacer */}
-                                        <div style={{ flex: 1 }} />
-
-                                        {/* Action Button */}
+                                        {/* Button - fixed height */}
                                         <Link
                                             to={`/exam/${exam.id}`}
                                             className="btn btn-primary"
                                             style={{
                                                 width: '100%',
                                                 textAlign: 'center',
-                                                justifyContent: 'center',
-                                                fontWeight: '500',
-                                                padding: '0.625rem 1rem'
+                                                padding: '0.625rem',
+                                                fontSize: '0.9375rem',
+                                                fontWeight: '500'
                                             }}
                                         >
                                             Start Exam
@@ -173,73 +171,71 @@ export default function StudentDashboard() {
                                     <div key={res.id} className="item-card" style={{
                                         background: 'white',
                                         padding: '1.5rem',
-                                        borderRadius: 'var(--radius)',
-                                        border: '1px solid var(--border)',
+                                        borderRadius: '8px',
+                                        border: '1px solid #e5e7eb',
                                         display: 'flex',
                                         flexDirection: 'column',
-                                        height: '100%'
+                                        height: '190px',
+                                        transition: 'box-shadow 0.2s ease'
                                     }}>
-                                        {/* Title with Score */}
-                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '0.75rem' }}>
-                                            <h4 className="item-card-title" style={{
-                                                fontSize: '1.1rem',
-                                                fontWeight: '600',
-                                                color: 'var(--text-primary)',
-                                                margin: 0,
-                                                minHeight: '1.65rem',
-                                                flex: 1
-                                            }}>
-                                                {res.exams?.title || 'Unknown Exam'}
-                                            </h4>
+                                        {/* Title */}
+                                        <h4 style={{
+                                            fontSize: '1.1rem',
+                                            fontWeight: '600',
+                                            marginBottom: '0.75rem',
+                                            color: '#111827',
+                                            lineHeight: '1.4'
+                                        }}>
+                                            {res.exams?.title || 'Unknown Exam'}
+                                        </h4>
 
-                                            <div style={{ textAlign: 'right', marginLeft: '1rem' }}>
-                                                <div style={{
-                                                    fontSize: '1.5rem',
+                                        {/* Date */}
+                                        <p style={{
+                                            margin: '0 0 0.75rem 0',
+                                            fontSize: '0.875rem',
+                                            color: '#6b7280'
+                                        }}>
+                                            Submitted {new Date(res.submitted_at).toLocaleDateString()} • {new Date(res.submitted_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                        </p>
+
+                                        {/* Score */}
+                                        <div style={{
+                                            flex: 1,
+                                            display: 'flex',
+                                            marginBottom: '1rem',
+                                            alignItems: 'flex-start'
+                                        }}>
+                                            <div style={{
+                                                fontSize: '0.875rem',
+                                                color: '#6b7280',
+                                                display: 'flex',
+                                                alignItems: 'baseline',
+                                                gap: '0.375rem'
+                                            }}>
+                                                <span style={{ fontWeight: '500' }}>Score:</span>
+                                                <span style={{
+                                                    fontSize: '1.25rem',
                                                     fontWeight: '700',
-                                                    color: res.score >= (res.exams?.total_score * 0.6) ? 'var(--success)' : 'var(--danger)',
-                                                    lineHeight: 1
+                                                    color: res.score >= (res.exams?.total_score * 0.6) ? '#22c55e' : '#ef4444'
                                                 }}>
                                                     {res.score}
-                                                    <span style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontWeight: '500', marginLeft: '0.25rem' }}>
-                                                        / {res.exams?.total_score || '?'}
-                                                    </span>
-                                                </div>
-                                                <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '0.25rem' }}>
-                                                    Score
-                                                </div>
+                                                </span>
+                                                <span style={{ fontWeight: '500' }}>/ {res.exams?.total_score || '?'}</span>
                                             </div>
                                         </div>
 
-                                        {/* Metadata Area - Fixed Height */}
-                                        <div style={{
-                                            minHeight: '52px',
-                                            marginBottom: '1rem',
-                                            display: 'flex',
-                                            flexDirection: 'column',
-                                            gap: '0.5rem'
-                                        }}>
-                                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
-                                                <span>📅 {new Date(res.submitted_at).toLocaleDateString()}</span>
-                                                <span>•</span>
-                                                <span>{new Date(res.submitted_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
-                                            </div>
-                                        </div>
-
-                                        {/* Spacer */}
-                                        <div style={{ flex: 1 }} />
-
-                                        {/* Action Button */}
+                                        {/* Button - fixed height */}
                                         <Link
                                             to={`/exam-detail/${res.id}`}
                                             className="btn btn-outline"
                                             style={{
                                                 width: '100%',
                                                 textAlign: 'center',
-                                                justifyContent: 'center',
+                                                padding: '0.625rem',
+                                                fontSize: '0.9375rem',
                                                 fontWeight: '500',
                                                 borderColor: 'var(--primary)',
-                                                color: 'var(--primary)',
-                                                padding: '0.625rem 1rem'
+                                                color: 'var(--primary)'
                                             }}
                                         >
                                             View Details
