@@ -35,8 +35,33 @@ export default function Register() {
     };
 
     return (
-        <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--background)', padding: '2rem' }}>
-            <div className="card" style={{ width: '100%', maxWidth: '420px' }}>
+        <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: 'var(--background)', padding: '2rem' }}>
+            {/* Branding */}
+            <div style={{ textAlign: 'center', marginBottom: '2rem', position: 'relative', zIndex: 1 }}>
+                <h1 style={{
+                    fontSize: '2.5rem',
+                    fontWeight: '700',
+                    margin: '0 0 0.5rem 0',
+                    background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text',
+                    letterSpacing: '-0.02em'
+                }}>
+                    AI Exam System
+                </h1>
+                <p style={{
+                    margin: 0,
+                    fontSize: '0.875rem',
+                    color: 'var(--text-muted)',
+                    fontWeight: '400',
+                    letterSpacing: '0.05em'
+                }}>
+                    built by antigravity
+                </p>
+            </div>
+
+            <div className="card" style={{ width: '100%', maxWidth: '420px', position: 'relative', zIndex: 1 }}>
                 <h2 style={{ textAlign: 'center' }}>Register</h2>
                 <form onSubmit={handleRegister} className="flex flex-col">
                     <input
