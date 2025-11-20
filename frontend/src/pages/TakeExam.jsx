@@ -190,27 +190,36 @@ export default function TakeExam() {
                                                 style={{
                                                     width: '1.2rem',
                                                     height: '1.2rem',
+                                                    margin: 0,
                                                     marginRight: '1rem',
                                                     accentColor: 'var(--primary)',
-                                                    cursor: 'pointer'
+                                                    cursor: 'pointer',
+                                                    flexShrink: 0
                                                 }}
                                             />
                                             <span style={{
-                                                width: '24px',
-                                                height: '24px',
+                                                width: '28px',
+                                                height: '28px',
                                                 display: 'flex',
                                                 alignItems: 'center',
                                                 justifyContent: 'center',
                                                 background: isSelected ? 'var(--primary)' : '#f3f4f6',
                                                 color: isSelected ? 'white' : '#6b7280',
                                                 borderRadius: '50%',
-                                                fontSize: '0.8rem',
+                                                fontSize: '0.9rem',
                                                 fontWeight: '600',
-                                                marginRight: '0.75rem'
+                                                marginRight: '0.75rem',
+                                                flexShrink: 0
                                             }}>
                                                 {optLabel}
                                             </span>
-                                            <span style={{ color: isSelected ? 'var(--primary-dark)' : 'var(--text-primary)' }}>{opt}</span>
+                                            <span style={{
+                                                color: isSelected ? 'var(--primary-dark)' : 'var(--text-primary)',
+                                                lineHeight: '1.5',
+                                                flex: 1
+                                            }}>
+                                                {opt}
+                                            </span>
                                         </label>
                                     );
                                 })}
