@@ -647,6 +647,137 @@ export default function TeacherDashboard() {
                         </div>
                     </div>
                 )}
+                {/* Analytics Tab */}
+                {activeTab === 'analytics' && selectedExam && (
+                    <div className="container">
+                        <button
+                            className="btn btn-outline"
+                            onClick={() => setActiveTab('exams')}
+                            style={{ marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+                        >
+                            ← Back to Exams
+                        </button>
+
+                        <div className="section-header" style={{ marginBottom: '2rem' }}>
+                            <div>
+                                <h2 style={{ margin: 0, fontSize: '1.75rem' }}>{selectedExam.title}</h2>
+                                <p style={{ color: 'var(--text-muted)', margin: '0.5rem 0 0' }}>
+                                    Analytics & Performance
+                                </p>
+                            </div>
+                            <div className="card" style={{ padding: '1rem 2rem', textAlign: 'center', minWidth: '200px' }}>
+                                <div style={{ fontSize: '0.875rem', color: 'var(--text-muted)', marginBottom: '0.25rem' }}>Average Score</div>
+                                <div style={{ fontSize: '2rem', fontWeight: 700, color: 'var(--primary)' }}>
+                                    {examResults.length > 0
+                                        ? (examResults.reduce((acc, curr) => acc + curr.score, 0) / examResults.length).toFixed(1)
+                                        : '0.0'}
+                                    <span style={{ fontSize: '1rem', color: 'var(--text-muted)', fontWeight: 400 }}> / {selectedExam.total_score}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-2" style={{ gap: '2rem', alignItems: 'start' }}>
+                            {/* Left Column: Student Scores */}
+                            <div>
+                                <div className="section-header" style={{ marginBottom: '1rem' }}>
+                                    <h3>Student Scores</h3>
+                                    <span className="badge badge-primary">{examResults.length} Submissions</span>
+                                </div>
+                                <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
+                                    <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                                        <thead style={{ background: '#f8fafc', borderBottom: '1px solid var(--border)' }}>
+                                            <tr>
+                                                <th style={{ padding: '1rem', textAlign: 'left', fontSize: '0.875rem', color: 'var(--text-muted)' }}>Student</th>
+                                                <th style={{ padding: '1rem', textAlign: 'right', fontSize: '0.875rem', color: 'var(--text-muted)' }}>Score</th>
+                                                <th style={{ padding: '1rem', textAlign: 'right', fontSize: '0.875rem', color: 'var(--text-muted)' }}>Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {examResults.length === 0 ? (
+                                                <tr>
+                                                    <td colSpan="3" style={{ padding: '2rem', textAlign: 'center', color: 'var(--text-muted)' }}>
+                                                        No submissions yet.
+                                                    </td>
+                                                </tr>
+                                            ) : (
+                                                examResults.map(result => (
+                                                    <tr key={result.id} style={{ borderBottom: '1px solid var(--border)' }}>
+                                                        <td style={{ padding: '1rem', fontWeight: 500 }}>{result.studentName}</td>
+                                                        <td style={{ padding: '1rem', textAlign: 'right', fontWeight: 700, color: result.score >= selectedExam.total_score * 0.6 ? 'var(--success)' : 'var(--danger)' }}>
+                                                            {result.score}
+                                                        </td>
+                                                        <td style={{ padding: '1rem', textAlign: 'right', fontSize: '0.875rem', color: 'var(--text-muted)' }}>
+                                                            {new Date(result.submitted_at).toLocaleDateString()}
+                                                        </td>
+                                                    </tr>
+                                                ))
+                                            )}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            {/* Right Column: Error Distribution */}
+                            <div>
+                                <div className="section-header" style={{ marginBottom: '1rem' }}>
+                                    <h3>Error Distribution</h3>
+                                </div>
+                                <div className="flex flex-col" style={{ gap: '1rem' }}>
+                                    {calculateErrorDistribution().map((stat, idx) => (
+                                        <div key={idx} className="card" style={{ padding: '1.25rem' }}>
+                                            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
+                                                <h4 style={{ margin: 0, fontSize: '1rem', fontWeight: 600 }}>
+                                                    Q{idx + 1}. {stat.question}
+                                                </h4>
+                                                <span className="badge" style={{
+                                                    background: stat.errorRate > 50 ? '#fef2f2' : '#f0fdf4',
+                                                    color: stat.errorRate > 50 ? '#ef4444' : '#16a34a',
+                                                    border: `1px solid ${stat.errorRate > 50 ? '#fecaca' : '#bbf7d0'}`
+                                                }}>
+                                                    {stat.errorRate}% Error Rate
+                                                </span>
+                                            </div>
+
+                                            {/* Progress Bar */}
+                                            <div style={{ height: '8px', background: '#f1f5f9', borderRadius: '999px', overflow: 'hidden', marginBottom: '1rem' }}>
+                                                <div style={{
+                                                    height: '100%',
+                                                    width: `${stat.errorRate}%`,
+                                                    background: stat.errorRate > 50 ? '#ef4444' : '#22c55e',
+                                                    transition: 'width 0.5s ease'
+                                                }} />
+                                            </div>
+
+                                            {/* Wrong Answers Breakdown */}
+                                            {stat.wrongCount > 0 && (
+                                                <div style={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>
+                                                    <strong style={{ color: 'var(--text-main)' }}>Common Mistakes:</strong>
+                                                    <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.5rem', flexWrap: 'wrap' }}>
+                                                        {Object.entries(stat.wrongAnswers).map(([opt, count]) => (
+                                                            <span key={opt} style={{
+                                                                background: '#f3f4f6',
+                                                                padding: '0.25rem 0.5rem',
+                                                                borderRadius: '4px',
+                                                                fontSize: '0.75rem'
+                                                            }}>
+                                                                Option {opt}: {count} student{count > 1 ? 's' : ''}
+                                                            </span>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+                                    ))}
+                                    {calculateErrorDistribution().length === 0 && (
+                                        <div className="card" style={{ textAlign: 'center', padding: '2rem', color: 'var(--text-muted)' }}>
+                                            No data available for analysis yet.
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
             </div>
 
             <Modal
