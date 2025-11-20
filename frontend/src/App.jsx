@@ -5,6 +5,7 @@ import Register from './pages/Register';
 import TeacherDashboard from './pages/TeacherDashboard';
 import StudentDashboard from './pages/StudentDashboard';
 import TakeExam from './pages/TakeExam';
+import ExamDetail from './pages/ExamDetail';
 import Results from './pages/Results';
 
 const PrivateRoute = ({ children, role }) => {
@@ -45,6 +46,11 @@ function App() {
                         <Route path="/exam/:id" element={
                             <PrivateRoute role="student">
                                 <TakeExam />
+                            </PrivateRoute>
+                        } />
+                        <Route path="/exam-detail/:resultId" element={
+                            <PrivateRoute role="student">
+                                <ExamDetail />
                             </PrivateRoute>
                         } />
                         <Route path="/results" element={

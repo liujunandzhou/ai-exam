@@ -152,36 +152,53 @@ export default function StudentDashboard() {
                                         borderRadius: 'var(--radius)',
                                         border: '1px solid var(--border)',
                                         display: 'flex',
-                                        justifyContent: 'space-between',
-                                        alignItems: 'center'
+                                        flexDirection: 'column',
+                                        gap: '1rem'
                                     }}>
-                                        <div>
-                                            <h4 className="item-card-title" style={{ fontSize: '1.1rem', fontWeight: '600', marginBottom: '0.5rem' }}>
-                                                {res.exams?.title || 'Unknown Exam'}
-                                            </h4>
-                                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
-                                                <span>📅 {new Date(res.submitted_at).toLocaleDateString()}</span>
-                                                <span>•</span>
-                                                <span>{new Date(res.submitted_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start' }}>
+                                            <div>
+                                                <h4 className="item-card-title" style={{ fontSize: '1.1rem', fontWeight: '600', marginBottom: '0.5rem' }}>
+                                                    {res.exams?.title || 'Unknown Exam'}
+                                                </h4>
+                                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
+                                                    <span>📅 {new Date(res.submitted_at).toLocaleDateString()}</span>
+                                                    <span>•</span>
+                                                    <span>{new Date(res.submitted_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                                                </div>
+                                            </div>
+
+                                            <div style={{ textAlign: 'right' }}>
+                                                <div style={{
+                                                    fontSize: '1.5rem',
+                                                    fontWeight: '700',
+                                                    color: res.score >= (res.exams?.total_score * 0.6) ? 'var(--success)' : 'var(--danger)',
+                                                    lineHeight: 1
+                                                }}>
+                                                    {res.score}
+                                                    <span style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontWeight: '500', marginLeft: '0.25rem' }}>
+                                                        / {res.exams?.total_score || '?'}
+                                                    </span>
+                                                </div>
+                                                <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '0.25rem' }}>
+                                                    Score
+                                                </div>
                                             </div>
                                         </div>
 
-                                        <div style={{ textAlign: 'right' }}>
-                                            <div style={{
-                                                fontSize: '1.5rem',
-                                                fontWeight: '700',
-                                                color: res.score >= (res.exams?.total_score * 0.6) ? 'var(--success)' : 'var(--danger)',
-                                                lineHeight: 1
-                                            }}>
-                                                {res.score}
-                                                <span style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontWeight: '500', marginLeft: '0.25rem' }}>
-                                                    / {res.exams?.total_score || '?'}
-                                                </span>
-                                            </div>
-                                            <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '0.25rem' }}>
-                                                Score
-                                            </div>
-                                        </div>
+                                        <Link
+                                            to={`/exam-detail/${res.id}`}
+                                            className="btn btn-outline"
+                                            style={{
+                                                width: '100%',
+                                                textAlign: 'center',
+                                                justifyContent: 'center',
+                                                fontWeight: '500',
+                                                borderColor: 'var(--primary)',
+                                                color: 'var(--primary)'
+                                            }}
+                                        >
+                                            View Details
+                                        </Link>
                                     </div>
                                 ))
                             )}
