@@ -79,7 +79,7 @@ export default function StudentDashboard() {
                                         border: '1px solid #e5e7eb',
                                         display: 'flex',
                                         flexDirection: 'column',
-                                        height: '190px',
+                                        minHeight: '190px',
                                         transition: 'box-shadow 0.2s ease'
                                     }}>
                                         {/* Title */}
@@ -175,7 +175,7 @@ export default function StudentDashboard() {
                                         border: '1px solid #e5e7eb',
                                         display: 'flex',
                                         flexDirection: 'column',
-                                        height: '190px',
+                                        minHeight: '190px',
                                         transition: 'box-shadow 0.2s ease'
                                     }}>
                                         {/* Title */}
