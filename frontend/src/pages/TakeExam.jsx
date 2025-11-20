@@ -53,7 +53,7 @@ export default function TakeExam() {
         if (examData.question_ids && examData.question_ids.length > 0) {
             const { data: questionsData, error: qError } = await supabase
                 .from('questions')
-                .select('id, content, options, score, answer')
+                .select('id, content, options, score')
                 .in('id', examData.question_ids);
 
             if (qError) console.error(qError);
@@ -72,27 +72,18 @@ export default function TakeExam() {
     const handleConfirmSubmit = async () => {
         setShowConfirmModal(false);
 
-        // Auto-grading Logic (Client-side for Lite)
-        let totalScore = 0;
-        questions.forEach(q => {
-            if (answers[q.id] === q.answer) {
-                totalScore += q.score;
-            }
-        });
-
         try {
-            const { error } = await supabase
-                .from('exam_results')
-                .insert([{
-                    student_id: user.id,
-                    exam_id: id,
-                    score: totalScore,
-                    answers: answers
-                }]);
+            // Call server-side grading function
+            const { data, error } = await supabase
+                .rpc('grade_and_submit_exam', {
+                    p_student_id: user.id,
+                    p_exam_id: id,
+                    p_answers: answers
+                });
 
             if (error) throw error;
 
-            setResultModal({ isOpen: true, score: totalScore, total: exam.total_score });
+            setResultModal({ isOpen: true, score: data.score, total: exam.total_score });
         } catch (err) {
             setModal({
                 isOpen: true,
