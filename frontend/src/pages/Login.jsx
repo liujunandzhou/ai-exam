@@ -56,7 +56,7 @@ export default function Login() {
                     backgroundClip: 'text',
                     letterSpacing: '-0.02em'
                 }}>
-                    AI Exam System
+                    AI Exam
                 </h1>
                 <p style={{
                     margin: 0,
