@@ -333,7 +333,7 @@ export default function ProfileMenu() {
 
                         <button
                             onClick={() => {
-                                setIsChangingPassword(true);
+                                window.open('/about', '_blank');
                                 setIsOpen(false);
                             }}
                             style={{
