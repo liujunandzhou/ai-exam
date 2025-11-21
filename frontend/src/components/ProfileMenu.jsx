@@ -333,7 +333,7 @@ export default function ProfileMenu() {
 
                         <button
                             onClick={() => {
-                                window.open('/about', '_blank');
+                                setIsChangingPassword(true);
                                 setIsOpen(false);
                             }}
                             style={{
@@ -363,6 +363,40 @@ export default function ProfileMenu() {
                         >
                             <span style={{ fontSize: '1.1rem' }}>🔒</span>
                             <span>Change Password</span>
+                        </button>
+
+                        <button
+                            onClick={() => {
+                                window.open('/about', '_blank');
+                                setIsOpen(false);
+                            }}
+                            style={{
+                                width: '100%',
+                                textAlign: 'left',
+                                padding: '0.875rem 1rem',
+                                background: 'transparent',
+                                border: 'none',
+                                borderRadius: '8px',
+                                cursor: 'pointer',
+                                transition: 'all 0.2s',
+                                fontSize: '0.9rem',
+                                color: 'var(--text-primary)',
+                                fontWeight: '500',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '0.75rem'
+                            }}
+                            onMouseEnter={(e) => {
+                                e.currentTarget.style.background = 'var(--background)';
+                                e.currentTarget.style.transform = 'translateX(4px)';
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.background = 'transparent';
+                                e.currentTarget.style.transform = 'translateX(0)';
+                            }}
+                        >
+                            <span style={{ fontSize: '1.1rem' }}>ℹ️</span>
+                            <span>About</span>
                         </button>
 
                         <div style={{ height: '1px', background: 'var(--border)', margin: '0.5rem 0.75rem' }} />
