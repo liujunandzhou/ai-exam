@@ -43,10 +43,20 @@ export default function StudentDashboard() {
         <div style={{ minHeight: '100vh', background: 'var(--background)' }}>
             {/* Page Header */}
             <div className="page-header">
-                <div style={{ maxWidth: '1200px', width: '100%', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 2rem' }}>
-                    <div>
-                        <h1 style={{ marginBottom: '0.25rem', fontSize: '1.875rem', fontWeight: '700', letterSpacing: '-0.025em' }}>Student Dashboard</h1>
-                        <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.95rem' }}>
+                <div style={{
+                    maxWidth: '1200px',
+                    width: '100%',
+                    margin: '0 auto',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    padding: '0 2rem',
+                    flexWrap: 'wrap',
+                    gap: '1rem'
+                }}>
+                    <div style={{ flex: '1', minWidth: '200px' }}>
+                        <h1 style={{ marginBottom: '0.25rem', fontSize: 'clamp(1.5rem, 4vw, 1.875rem)', fontWeight: '700', letterSpacing: '-0.025em' }}>Student Dashboard</h1>
+                        <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: 'clamp(0.875rem, 2.5vw, 0.95rem)' }}>
                             Welcome back, {user?.email?.split('@')[0]}! Here are your exams.
                         </p>
                     </div>
@@ -55,7 +65,12 @@ export default function StudentDashboard() {
             </div>
 
             <div className="container" style={{ paddingBottom: '4rem' }}>
-                <div className="grid grid-cols-2" style={{ gap: '2rem', alignItems: 'start' }}>
+                <div className="grid grid-cols-2" style={{
+                    gap: '2rem',
+                    alignItems: 'start',
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 400px), 1fr))'
+                }}>
                     {/* Available Exams Section */}
                     <div className="card" style={{ border: 'none', boxShadow: 'var(--shadow-sm)', background: 'transparent', padding: 0 }}>
                         <div className="section-header" style={{ marginBottom: '1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
