@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Markdown from 'react-markdown';
-import ProfileMenu from '../components/ProfileMenu';
 
 export default function About() {
     const [content, setContent] = useState('');
@@ -39,7 +38,6 @@ export default function About() {
                         <h1 style={{ fontSize: '1.5rem', fontWeight: '700', color: '#1e293b', margin: 0 }}>About</h1>
                         <p style={{ margin: 0, color: '#64748b', fontSize: '0.875rem' }}>System Specification</p>
                     </div>
-                    <ProfileMenu />
                 </div>
             </div>
 
