@@ -25,6 +25,8 @@ const RootRedirect = () => {
     return <div>Unknown role</div>;
 };
 
+import About from './pages/About';
+
 function App() {
     return (
         <AuthProvider>
@@ -33,6 +35,7 @@ function App() {
                     <Routes>
                         <Route path="/login" element={<Login />} />
                         <Route path="/register" element={<Register />} />
+                        <Route path="/about" element={<About />} />
                         <Route path="/teacher" element={
                             <PrivateRoute role="teacher">
                                 <TeacherDashboard />
