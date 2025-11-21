@@ -193,11 +193,21 @@ export default function TeacherDashboard() {
         <div style={{ minHeight: '100vh', background: 'var(--background)' }}>
             {/* Page Header */}
             <div className="page-header">
-                <div style={{ maxWidth: '1200px', width: '100%', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 2rem' }}>
-                    <div>
-                        <h1 style={{ marginBottom: '0.25rem' }}>Teacher Dashboard</h1>
-                        <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.9rem' }}>
-                            Manage your questions and exams
+                <div style={{
+                    maxWidth: '1200px',
+                    width: '100%',
+                    margin: '0 auto',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    padding: '0 2rem',
+                    flexWrap: 'wrap',
+                    gap: '1rem'
+                }}>
+                    <div style={{ flex: '1', minWidth: '200px' }}>
+                        <h1 style={{ marginBottom: '0.25rem', fontSize: 'clamp(1.5rem, 4vw, 1.875rem)', fontWeight: '700', letterSpacing: '-0.025em' }}>Teacher Dashboard</h1>
+                        <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: 'clamp(0.875rem, 2.5vw, 0.95rem)' }}>
+                            Create and manage exams, questions, and view results.
                         </p>
                     </div>
                     <ProfileMenu />
